@@ -1,0 +1,126 @@
+version: "2.0"
+stories:
+# single intent & response
+- story: greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+- story: iban change
+  steps:
+  - intent: iban_change
+  - action: utter_iban_change
+- story: request inquiry
+  steps:
+  - intent: request_inquiry
+  - action: utter_request_inquiry
+# Static story line
+- story: Saned subscription inquiry - happy path
+  steps:
+  - intent: saned_subscribtion_inquiry
+  - action: utter_saned_subscribtion_inquiry
+  - intent: affirm
+  - action: utter_ask_saudi
+  - intent: affirm
+  - action: utter_employment_status
+  - intent: deny
+  - action: utter_saned_eligibility_respone_yes
+  - intent: thankyou
+  - action: utter_goodbye
+- story: Saned subscription inquiry unhappy path 1 (nationality)
+  steps:
+  - intent: saned_subscribtion_inquiry
+  - action: utter_saned_subscribtion_inquiry
+  - intent: affirm
+  - action: utter_ask_saudi
+  - intent: deny
+  - action: utter_saned_eligibility_respone_no_nationality
+  - intent: thankyou
+  - action: utter_goodbye
+- story: Saned subscription inquiry unhappy path 2 (employment)
+  steps:
+  - intent: saned_subscribtion_inquiry
+  - action: utter_saned_subscribtion_inquiry
+  - intent: affirm
+  - action: utter_ask_saudi
+  - intent: affirm
+  - action: utter_employment_status
+  - intent: affirm
+  - action: utter_saned_eligibility_respone_no_employment
+  - intent: thankyou
+  - action: utter_goodbye
+# Static story line with entity extraction
+- story: name and phone number extraction
+  steps:
+  - intent: pension_registration
+  - action: utter_pension_registration
+  - intent: affirm
+  - action: utter_name
+  - intent: name
+    entities:
+    - name: "نواف"
+  - action: utter_pension_registration_success
+# Interactive story line with integration (API integration)
+- story: city weather
+  steps:
+  - intent: city_weather
+  - action: utter_city
+  - intent: city
+  - action: action_weather_api
+- story: Story from Conversation ID b396cd3ecf0646fcbfcd24b385355f54
+  steps:
+  - intent: city_weather
+  - action: utter_city
+  - intent: city
+  - action: action_weather_api
+- story: clothes ask
+  steps:
+  - intent: clothes_ask
+    entities:
+      - city: "الرياض"
+  - slot_was_set:
+      - city: "الرياض"
+  - action: action_clothes_ask
+- story: Story from Conversation ID 5fefcc43b9694db38f54e4d4c1c9c21c
+  steps:
+  - intent: clothes_ask
+    entities:
+    - city: واشنطن
+  - slot_was_set:
+    - city: واشنطن
+  - action: action_clothes_ask
+# multi intents and context memory
+- story: saned rejection & requirements (multi-intents) happy
+  steps:
+  - intent: saned_rejection+saned_requirements
+  - action: utter_saned_rejection_and_saned_requirements
+  - intent: affirm
+  - action: utter_ask_nationality
+  - intent: deny
+  - action: utter_saned_eligibility_respone_no_nationality
+  - intent: thankyou
+  - action: utter_goodbye
+- story: saned rejection & requirements (multi-intents) unhappy
+  steps:
+  - intent: saned_rejection+saned_requirements
+  - action: utter_saned_rejection_and_saned_requirements
+  - intent: deny
+  - action: utter_goodbye
+
+# interactive story line
+- story: activate form
+  steps:
+  - intent: goodbye
+  - action: utter_survey
+  - intent: affirm
+  - action: survey_form
+  - active_loop: survey_form
+
+- story: activate form
+  steps:
+  - intent: thankyou
+  - action: utter_survey
+  - intent: affirm
+  - action: survey_form
+  - active_loop: survey_form
+
+

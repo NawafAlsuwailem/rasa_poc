@@ -1,0 +1,134 @@
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- nationality:
+    use_entities:
+    - nationality
+- salary:
+    use_entities:
+    - salary
+- name:
+    use_entities:
+    - name
+- city:
+    use_entities:
+    - city
+- out_of_scope
+- request_inquiry
+- saned_subscribtion_inquiry
+- saned_rejection+saned_requirements
+- city_weather
+- saned_cancellation
+- clothes_ask
+- saned_registration
+- pension_registration
+- thankyou
+- deny
+- greet
+- affirm
+- goodbye
+- iban_change
+- phone_number
+- service
+- rating
+entities:
+- nationality
+- salary
+- name
+- city
+- phone_number
+- service
+- rating
+slots:
+  city:
+    type: text
+    influence_conversation: true
+  nationality:
+    type: unfeaturized
+    influence_conversation: false
+  rating:
+    type: text
+    influence_conversation: true
+  requested_slot:
+    type: unfeaturized
+    influence_conversation: false
+  salary:
+    type: unfeaturized
+    influence_conversation: false
+  service:
+    type: text
+    influence_conversation: true
+responses:
+  utter_greet:
+  - text: مرحبا بك في مساعدنا الافتراضي ، كيف استطيع مساعدتك؟
+  utter_goodbye:
+  - text: شكرا، مع السلامة
+  utter_iban_change:
+  - text: سجل دخولك على الموقع الإلكتروني ثم قم باختيار حذف وتعديل بيانات البنك .
+      للمزيد من المعلومات قم بمتابعة الخطوات المذكورة على الرابط https://www.gosi.gov.sa/GOSIOnl
+      ine / Services ? locale = ar SA
+  utter_request_inquiry:
+  - text: طلبك تحت الإجراء سيتم اطلاعك برسالة نصية على رقمك المسجل بل موقع . ويمكنك
+      استفسار عن طلبك عبر الرابط https://www.gosi.gov.sa/GOSIOnl ine / Services ?
+      locale = ar SA
+  utter_saned_subscribtion_inquiry:
+  - text: استطيع مساعدتك اذا اردت معرفة امكانية التسجيل. هل تود الاستكمال؟
+  utter_saned_eligibility_respone_yes:
+  - text: شكرا! انت مؤهل للاستفاده من ساند وللتقديم الرجاء زيارة الرابط https://www.gosi.gov.sa/GOSIOnline/Registration#DetailData
+  utter_saned_eligibility_respone_no_employment:
+  - text: 'لا يمكن للموظف الاستفاده من ساند في حالة وجوده على رأس العمل. لمعرفة المزيد
+      الرجاء زيارة الرابط التالي: https://www.gosi.gov.sa/GOSIOnline/FAQ_Unemployment_Insurance_(SANED)'
+  utter_saned_eligibility_respone_no_nationality:
+  - text: لا يمكن لغير السعودي التقديم على ساند
+  utter_employment_status:
+  - text: هل انت على رأس العمل؟
+  utter_ask_nationality:
+  - text: الرجاء ادخل الجنسية
+  utter_ask_salary:
+  - text: كم راتبك الشهري حاليا؟
+  utter_slots_values:
+  - text: ' \n هذي القيم المدخله - الجنسية: {nationality} - الراتب: {salary}'
+  utter_ask_continue:
+  - text: هل تريد الاستكمال؟
+  utter_saned_rejection_and_saned_requirements:
+  - text: نأسف على ذلك، هل تود معرفة استحقاقك لنظام ساند؟
+  utter_city:
+  - text: في اي مدينه عايش؟
+  utter_temp:
+  - text: الطقس اليوم {temp} في {city}
+  utter_clothes_ask:
+  - text: افضل تلبس {clothes} لان الطقس في {city} {temp}
+  utter_saned_cancellation:
+  - text: 'لالغاء اشتراكك في نظام التعطل عن العمل (ساند)، الرجاء تزويدنا فالمعلومات
+      التالية:'
+  utter_name:
+  - text: الرجاء تزويدنا باسمك الاول
+  utter_pension_registration:
+  - text: استطيع مساعدتك للتسجل في المعاشات، هل تود ذلك؟
+  utter_pension_registration_success:
+  - text: تم تسجيلك في المعاشات بنجاح
+  utter_survey:
+  - text: هل تود المشاركة في استبيان جودة الخدمة؟
+  utter_ask_service:
+  - text: ماهي الخدمة التي اردت الاستفسار عنها؟
+  utter_ask_rating:
+  - text: ما تقييمك لاداء المساعد الالي؟
+  utter_survey_thanks:
+  - text: 'شكرا للمشاركة في الاستباين! الخدمة: {service}، التقييم: {rating} '
+  utter_aa:
+  - text: aa
+  utter_ask_saudi:
+  - text: هل انت سعودي؟
+actions:
+- action_weather_api
+- action_clothes_ask
+- action_submit
+forms:
+  survey_form:
+    rating:
+    - entity: rating
+      type: from_entity
+    service:
+    - entity: service
+      type: from_entity

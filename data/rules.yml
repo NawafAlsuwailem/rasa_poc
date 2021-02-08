@@ -1,0 +1,15 @@
+version: "2.0"
+
+rules:
+- rule: submit form
+  condition:
+  - active_loop: survey_form
+  steps:
+  - action: survey_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit
+
+
+
